@@ -8,7 +8,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 
 export default function F1Mclaren(props) {
   const group = useRef();
-  const gltf = useLoader(GLTFLoader, "./f1mclaren/model/scene.gltf");
+  const gltf = useLoader(GLTFLoader, "/f1mclaren/model/scene.gltf");
   return (
     <group ref={group} {...props} dispose={null} scale={0.8}>
       <primitive
