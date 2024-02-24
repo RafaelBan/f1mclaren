@@ -13,8 +13,8 @@ export default function F1Mclaren(props) {
     <group ref={group} {...props} dispose={null} scale={0.8}>
       <primitive
         object={gltf.scene}
-        position={[-1.4, 0, 0.5]}
-        rotation={[-1.6, 0, 0]}
+        position={[-1.37, -3.3, 0.65]}
+        rotation={[-1.6, 0, 0.02]}
       />
     </group>
   );

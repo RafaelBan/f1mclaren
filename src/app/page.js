@@ -1,17 +1,16 @@
 "use client";
 
 import * as THREE from "three";
-import { useLayoutEffect, useRef, useState, Suspense } from "react";
-import { Canvas, applyProps, useFrame } from "@react-three/fiber";
+import { useRef, useState, Suspense } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
 import {
-  PerformanceMonitor,
-  AccumulativeShadows,
-  RandomizedLight,
   Environment,
   Lightformer,
   Float,
-  useGLTF,
   OrbitControls,
+  ScrollControls,
+  Scroll,
+  Text3D,
 } from "@react-three/drei";
 import { LayerMaterial, Color, Depth } from "lamina";
 import F1Mclaren from "./f1mclaren.js";
@@ -20,21 +19,54 @@ export default function Home() {
   const [degraded, degrade] = useState(false);
   return (
     <main className="h-full w-full">
-      {/* <div className="absolute z-10 font-['Helsinki-thin'] text-7xl">
-        McLaren Formula 1 Team
-      </div>
-
-      <div className="absolute z-10 block font-['Helsinki-thin'] text-6xl">
-        Rafael-Valentin Ban
-      </div> */}
-      <Canvas shadows camera={{ position: [0, 1, -5] }}>
+      <Canvas shadows camera={{ position: [0, 1, -0.2] }}>
         <Suspense fallback={null}>
-          <F1Mclaren />
+          <ScrollControls pages={4.5}>
+            <Scroll>
+              <Text3D
+                font={"/f1mclaren/gt.json"}
+                scale={[-0.2, 0.2, 0.1]}
+                position={[3, 2, 2.5]}
+                curveSegments={24}
+                brevelSegments={1}
+                bevelEnabled
+                bevelSize={0.04}
+                bevelThickness={0}
+                height={0.3}
+                lineHeight={0.9}
+                letterSpacing={0.7}
+              >
+                {`McLaren Formula 1 Team`}
+                <meshMatcapMaterial color="#f26c1a" />
+              </Text3D>
+              <Text3D
+                font={"/f1mclaren/gt.json"}
+                scale={[-0.2, 0.2, 0.1]}
+                position={[2, 1.7, 2.5]}
+                curveSegments={24}
+                brevelSegments={1}
+                bevelEnabled
+                bevelSize={0}
+                bevelThickness={0}
+                height={0.3}
+                lineHeight={0.9}
+                letterSpacing={0.5}
+              >
+                {`Rafael-Valentin Ban`}
+                <meshMatcapMaterial color="#f26c1a" />
+              </Text3D>
+            </Scroll>
+            <Scroll>
+              <F1Mclaren />
+            </Scroll>
+          </ScrollControls>
           <OrbitControls
             makeDefault
             minPolarAngle={Math.PI / 2}
             maxPolarAngle={Math.PI / 2}
             enableZoom={false}
+            enableRotate={false}
+            enablePan={false}
           />
           <Environment
             frames={degraded ? 1 : Infinity}
@@ -116,8 +148,8 @@ function Lightformers({ positions = [2, 0, 2, 0, 2, 0, 2, 0] }) {
         <LayerMaterial side={THREE.BackSide}>
           <Color color="#ff9300" alpha={1} mode="normal" />
           <Depth
-            colorA="#030027"
-            colorB="#040030"
+            colorA="black"
+            colorB="black"
             alpha={1}
             mode="normal"
             near={0}
